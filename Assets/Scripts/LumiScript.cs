@@ -1,20 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
+
 
 public class LumiScript : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5.0f;
-    [SerializeField]
-    private float _jumpForce = 5f;
+    private float _speed = 3.0f;
     public bool isFollowing = false;
     private Transform followTarget;
-    private float _distanceFromTarget = 6.0f;
+    private float _distanceFromTarget = 4.5f;
     private Animator _animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+
+
+    //jump
+    public LayerMask groundLayer;
+    public Transform feetPosition;
+    public float jumpTimeCounter;
+    private bool _isJumping;
+    private bool _isGrounded;
+    [SerializeField]
+    private float _jumpForce = 2f;
+    [SerializeField]
+    private float _groundCheckCircle = 0.4f;
+    [SerializeField]
+    private float _jumpTime = 0.35f;
+    private float lastJump = 0;
+
 
 
 
@@ -32,19 +47,33 @@ public class LumiScript : MonoBehaviour
     {
        
             FollowPlayer();
-        
-      
 
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        
+        if(collision.tag == "Jump")
+        {
+            if (lastJump + 1000 > Time.realtimeSinceStartup)
+            {
+                JumpRight();
+                lastJump = Time.realtimeSinceStartup;
+            }
+          
+        }
+    }
 
     public void FollowPlayer()
     {
         if (Vector2.Distance(transform.position, followTarget.position) > _distanceFromTarget)
         {
             transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
+           
 
-            print("ta coreeno");
+  
                _animator.SetBool("isRunning", true);
 
             if (followTarget.position.x < transform.position.x)
@@ -61,9 +90,71 @@ public class LumiScript : MonoBehaviour
         else
         {
             _animator.SetBool("isRunning", false);
-            print("nau ta coreeno");
+ 
         }
     }
 
+   public void JumpRight()
+    {
+
+          
+        _isGrounded = Physics2D.OverlapCircle(feetPosition.position, _groundCheckCircle, groundLayer);
+
+        if (_isGrounded)
+        {
+            _isJumping = true;
+            jumpTimeCounter = _jumpTime;
+            rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.right * 3, ForceMode2D.Impulse);
+        
+        }
+
+        if ( _isJumping)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                
+                rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                _isJumping = false;
+            }
+
+        }
+    }
+
+
+    public void JumpLeft()
+    {
+
+
+        _isGrounded = Physics2D.OverlapCircle(feetPosition.position, _groundCheckCircle, groundLayer);
+
+        if (_isGrounded)
+        {
+            _isJumping = true;
+            jumpTimeCounter = _jumpTime;
+            rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.left * 3, ForceMode2D.Impulse);
+
+        }
+
+        if (_isJumping)
+        {
+            if (jumpTimeCounter > 0)
+            {
+
+                rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                _isJumping = false;
+            }
+
+        }
+    }
 
 }
