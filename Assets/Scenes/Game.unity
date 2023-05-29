@@ -5096,6 +5096,7 @@ GameObject:
   - component: {fileID: 640684534}
   - component: {fileID: 640684537}
   - component: {fileID: 640684538}
+  - component: {fileID: 640684539}
   m_Layer: 0
   m_Name: Lumi
   m_TagString: Untagged
@@ -5228,6 +5229,19 @@ CapsuleCollider2D:
   m_Offset: {x: -2.1082542, y: 0.19636978}
   m_Size: {x: 55.358852, y: 20.091816}
   m_Direction: 1
+--- !u!114 &640684539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640684533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e955297423d072d49a26dc36363ba308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
 --- !u!4 &641643515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7449227744695052838, guid: d9997400142b1f14281284870012ac00, type: 3}
@@ -11817,7 +11831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1546294774153461753, guid: 5a0c724bd1901dd4b8291d8732f51f4c, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2962366100609282604, guid: 5a0c724bd1901dd4b8291d8732f51f4c, type: 3}
       propertyPath: m_Size.x
