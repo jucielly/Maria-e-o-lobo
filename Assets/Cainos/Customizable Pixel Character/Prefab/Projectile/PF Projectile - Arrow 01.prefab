@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 98437196714000825}
   m_Layer: 9
   m_Name: PF Projectile - Arrow 01
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 10
-  hitZPos: 1
+  hitZPos: -5
   insertDepth: 0.4
   insertAngle: 60
 --- !u!212 &5580242978444663832

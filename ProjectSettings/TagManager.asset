@@ -5,10 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - wall
-  - mushroom
-  - endGame
-  - Cherry
-  - hole
+  - Arrow
   layers:
   - Default
   - TransparentFX

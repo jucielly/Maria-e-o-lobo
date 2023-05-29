@@ -69,7 +69,7 @@ public class FrogSript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.tag == "mushroom")
+        if (collision.gameObject.tag == "Arrow")
         {
             life = life - 1;
           
@@ -80,7 +80,7 @@ public class FrogSript : MonoBehaviour
         }
 
 
-        if (collision.gameObject.tag == "Player")
+        /*if (collision.gameObject.tag == "Player")
         {
             //damage player
           PlayerScript  player = collision.gameObject.GetComponent<PlayerScript>();
@@ -89,7 +89,7 @@ public class FrogSript : MonoBehaviour
             {
                 player.Damage();
             }
-        }
+        }*/
     }
 
 }
