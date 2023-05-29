@@ -9,7 +9,7 @@ public class LumiScript : MonoBehaviour
     private float _speed = 5.0f;
     [SerializeField]
     private float _jumpForce = 5f;
-    private bool isFollowing = false;
+    public bool isFollowing = false;
     private Transform followTarget;
     private float _distanceFromTarget = 6.0f;
     private Animator _animator;
@@ -30,10 +30,9 @@ public class LumiScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFollowing)
-        {
+       
             FollowPlayer();
-        }
+        
       
 
     }
@@ -45,9 +44,10 @@ public class LumiScript : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
 
-         
+            print("ta coreeno");
+               _animator.SetBool("isRunning", true);
 
-            if(followTarget.position.x < transform.position.x)
+            if (followTarget.position.x < transform.position.x)
             {
                 spriteRenderer.flipX = true;
             }
@@ -55,25 +55,15 @@ public class LumiScript : MonoBehaviour
             {
                 spriteRenderer.flipX = false;
             }
-             _animator.SetBool("isRunning", true);
+         
             
         }
         else
         {
-            isFollowing = false;
             _animator.SetBool("isRunning", false);
+            print("nau ta coreeno");
         }
     }
 
-
-    public void StartFollow()
-    {
-        isFollowing = true;
-    }
-
-    public void StopFollow()
-    {
-        isFollowing = false;
-    }
 
 }
