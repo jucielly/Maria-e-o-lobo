@@ -48,9 +48,9 @@ public class LumiScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-            FollowPlayer();
 
+
+        FollowPlayer();
     }
 
 
@@ -69,6 +69,26 @@ public class LumiScript : MonoBehaviour
         }
     }
 
+    public void StartFollowingPlayer()
+    {
+        Vector2 targetPosition = followTarget.position;
+        float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
+
+        // Calculate a closer position based on the distance and desired distance offset
+        if (distanceToTarget > _distanceFromTarget)
+        {
+            Vector2 directionToTarget = (targetPosition - (Vector2)transform.position).normalized;
+            Vector2 closerPosition = targetPosition - directionToTarget * (_distanceFromTarget - 0.5f);
+            targetPosition = closerPosition;
+
+            // Instantiate a new game object at the closer position
+            GameObject newLumi = Instantiate(gameObject, targetPosition, Quaternion.identity);
+            newLumi.GetComponent<LumiScript>().isFollowing = true;
+
+            // Destroy the existing game object
+            Destroy(gameObject);
+        }
+    }
     public void FollowPlayer()
     {
        
@@ -110,7 +130,7 @@ public class LumiScript : MonoBehaviour
         }
     }
 
-   public void JumpRight()
+    public void JumpRight()
     {
 
           
@@ -141,36 +161,5 @@ public class LumiScript : MonoBehaviour
         }
     }
 
-
-    public void JumpLeft()
-    {
-
-
-        _isGrounded = Physics2D.OverlapCircle(feetPosition.position, _groundCheckCircle, groundLayer);
-
-        if (_isGrounded)
-        {
-            _isJumping = true;
-            jumpTimeCounter = _jumpTime;
-            rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-            rb.AddForce(Vector2.left * 3, ForceMode2D.Impulse);
-
-        }
-
-        if (_isJumping)
-        {
-            if (jumpTimeCounter > 0)
-            {
-
-                rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                _isJumping = false;
-            }
-
-        }
-    }
 
 }
