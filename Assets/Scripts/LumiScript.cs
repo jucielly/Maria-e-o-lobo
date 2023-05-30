@@ -77,8 +77,16 @@ public class LumiScript : MonoBehaviour
         // Calculate a closer position based on the distance and desired distance offset
         if (distanceToTarget > _distanceFromTarget)
         {
-            Vector2 directionToTarget = (targetPosition - (Vector2)transform.position).normalized;
-            Vector2 closerPosition = targetPosition - directionToTarget * (_distanceFromTarget - 0.5f);
+            Vector2 closerPosition = targetPosition;
+            closerPosition.x += Mathf.Sign(transform.position.x - targetPosition.x) * (_distanceFromTarget - 0.5f);
+
+            // Perform a raycast from target position downwards to find the ground level
+            RaycastHit2D groundHit = Physics2D.Raycast(targetPosition, Vector2.down, Mathf.Infinity, groundLayer);
+            if (groundHit.collider != null)
+            {
+                closerPosition.y = groundHit.point.y + GetComponent<SpriteRenderer>().bounds.extents.y; // Set the y coordinate to the ground level plus half of the sprite height
+            }
+
             targetPosition = closerPosition;
 
             // Instantiate a new game object at the closer position
