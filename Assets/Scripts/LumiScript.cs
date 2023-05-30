@@ -11,6 +11,7 @@ public class LumiScript : MonoBehaviour
     private float _speed = 3.0f;
     public bool isFollowing = false;
     private Transform followTarget;
+    private GameObject player;
     private float _distanceFromTarget = 4.5f;
     private Animator _animator;
     private Rigidbody2D rb;
@@ -40,6 +41,7 @@ public class LumiScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         followTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player");
         _animator = GetComponent<Animator>();
     }
 
@@ -69,15 +71,26 @@ public class LumiScript : MonoBehaviour
 
     public void FollowPlayer()
     {
-        if (Vector2.Distance(transform.position, followTarget.position) > _distanceFromTarget)
+       
+        if (Vector2.Distance(transform.position, followTarget.position) > _distanceFromTarget && isFollowing)
         {
-            
+            bool isTargetRunning = player.GetComponent<PixelCharacterController>().IsRunning;
+            bool isTargetWalking = player.GetComponent<PixelCharacterController>().IsMoving;
+
+            if (isTargetRunning)
+            {
+                _speed = 5.0f;
+            }
+            else if(isTargetWalking)
+            {
+                _speed = 3.0f;
+            }
 
             transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
-           
+            _animator.SetBool("isRunning", true);
+          
 
-  
-               _animator.SetBool("isRunning", true);
+        
 
             if (followTarget.position.x < transform.position.x)
             {

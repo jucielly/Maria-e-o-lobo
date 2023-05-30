@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameHuds : MonoBehaviour
 {
-
-    private LumiScript lumiScript;
-    private bool isFollowing = false;
-    private bool isLumingFollowing;
+    public Text lumiFollowsText;
+   
     // Start is called before the first frame update
     void Start()
     {
-        isLumingFollowing = lumiScript.isFollowing;
+      
     }
 
     // Update is called once per frame
@@ -21,9 +20,22 @@ public class InGameHuds : MonoBehaviour
     }
 
 
+ 
+
+
     public void ToogleFollow()
     {
-        isFollowing = !isFollowing;
-        print("ola" + isFollowing);
+     bool lumiIsFollowing = !GameObject.FindGameObjectWithTag("Lumi").GetComponent<LumiScript>().isFollowing;
+     GameObject.FindGameObjectWithTag("Lumi").GetComponent<LumiScript>().isFollowing = lumiIsFollowing;
+
+        if (!lumiIsFollowing)
+        {
+            lumiFollowsText.text = "Seguir";
+        }
+        else
+        {
+            lumiFollowsText.text = "Parar de seguir";
+        }
+        print("ola" + lumiIsFollowing);
     }
 }
