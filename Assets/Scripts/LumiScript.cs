@@ -1,3 +1,4 @@
+using Cainos.CustomizablePixelCharacter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,6 +71,8 @@ public class LumiScript : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, followTarget.position) > _distanceFromTarget)
         {
+            
+
             transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
            
 
