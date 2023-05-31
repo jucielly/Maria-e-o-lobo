@@ -1,6 +1,8 @@
+using Cainos.CustomizablePixelCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class PlayerHealthSystem : MonoBehaviour
@@ -12,6 +14,8 @@ public class PlayerHealthSystem : MonoBehaviour
     public Text healthText;
     public Animator playerAnimator;
     public AudioSource damage;
+    public GameObject gameOverUi;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +40,10 @@ public class PlayerHealthSystem : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+           GameObject.FindGameObjectWithTag("Player").GetComponent<PixelCharacterController>().IsDead = true;
+            gameOverUi.SetActive(true);
             print("morreu");
         }
     }
+
 }

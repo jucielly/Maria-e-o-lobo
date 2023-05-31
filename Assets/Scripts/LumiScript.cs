@@ -74,26 +74,18 @@ public class LumiScript : MonoBehaviour
         Vector2 targetPosition = followTarget.position;
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
 
-        // Calculate a closer position based on the distance and desired distance offset
+        // Calculate a closer position based on the distance and desired distance offset 
         if (distanceToTarget > _distanceFromTarget)
         {
-            Vector2 closerPosition = targetPosition;
-            closerPosition.x += Mathf.Sign(transform.position.x - targetPosition.x) * (_distanceFromTarget - 0.5f);
-
-            // Perform a raycast from target position downwards to find the ground level
-            RaycastHit2D groundHit = Physics2D.Raycast(targetPosition, Vector2.down, Mathf.Infinity, groundLayer);
-            if (groundHit.collider != null)
-            {
-                closerPosition.y = groundHit.point.y + GetComponent<SpriteRenderer>().bounds.extents.y; // Set the y coordinate to the ground level plus half of the sprite height
-            }
-
+            Vector2 directionToTarget = (targetPosition - (Vector2)transform.position).normalized;
+            Vector2 closerPosition = targetPosition - directionToTarget * (_distanceFromTarget - 0.5f);
             targetPosition = closerPosition;
 
-            // Instantiate a new game object at the closer position
+            // Instantiate a new game object at the closer position 
             GameObject newLumi = Instantiate(gameObject, targetPosition, Quaternion.identity);
             newLumi.GetComponent<LumiScript>().isFollowing = true;
 
-            // Destroy the existing game object
+            // Destroy the existing game object 
             Destroy(gameObject);
         }
     }

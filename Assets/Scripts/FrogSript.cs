@@ -14,6 +14,7 @@ public class FrogSript : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private int life = 4;
     
+    
 
 
     void Start()
