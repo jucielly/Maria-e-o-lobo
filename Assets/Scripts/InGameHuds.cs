@@ -30,6 +30,7 @@ public class InGameHuds : MonoBehaviour
 
         if (lumiIsFollowing)
         {
+            GameObject.FindGameObjectWithTag("Lumi").GetComponent<LumiScript>().StartFollowingPlayer();
             lumiFollowsText.text = "Wait";
             
         }

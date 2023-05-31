@@ -18,6 +18,7 @@ public class LumiScript : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Text lumiFollowsText;
+    public float lastFollowedPlayer = 0f;
 
 
     //jump
@@ -33,6 +34,7 @@ public class LumiScript : MonoBehaviour
     [SerializeField]
     private float _jumpTime = 0.35f;
     private float lastJump = 0;
+    
 
 
 
@@ -63,7 +65,14 @@ public class LumiScript : MonoBehaviour
         if (isFollowing)
         {
             lumiFollowsText.text = "Wait";
+            
+            if(Vector2.Distance(transform.position, followTarget.position) > _distanceFromTarget * 3)
+            {
 
+
+                StartFollowingPlayer();
+               
+            }
         }
         else
         {
@@ -87,12 +96,26 @@ public class LumiScript : MonoBehaviour
             }
           
         }
+
+        if(collision.tag == "Outlimits" && isFollowing)
+        {
+            transform.position = new Vector2(24.38f, -2.171665f);
+            isFollowing = false;
+        }
     }
 
     public void StartFollowingPlayer()
     {
+
+        print("x" + player.GetComponent<Transform>().position.x + "y" + player.GetComponent<Transform>().position.y);
+        if (lastFollowedPlayer + 2 > Time.realtimeSinceStartup)
+        {
+            return;
+        }
+        lastFollowedPlayer = Time.realtimeSinceStartup;
         Vector2 targetPosition = followTarget.position;
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
+
 
         // Calculate a closer position based on the distance and desired distance offset 
         if (distanceToTarget > _distanceFromTarget)
@@ -100,6 +123,20 @@ public class LumiScript : MonoBehaviour
             Vector2 directionToTarget = (targetPosition - (Vector2)transform.position).normalized;
             Vector2 closerPosition = targetPosition - directionToTarget * (_distanceFromTarget - 0.5f);
             targetPosition = closerPosition;
+            float playerY = player.GetComponent<Transform>().position.y;
+            float playerX = player.GetComponent<Transform>().position.x;
+            bool yInHigherJumpArea = playerY < 18 && playerY > 10;
+            bool xInHigherJumpArea = playerX < 120 && playerX > 56;
+
+            if(yInHigherJumpArea && xInHigherJumpArea)
+            {
+                targetPosition.y = targetPosition.y + 8;
+            }
+            else
+            {
+                targetPosition.y = targetPosition.y + 4;
+            }
+           
 
             // Instantiate a new game object at the closer position 
             GameObject newLumi = Instantiate(gameObject, targetPosition, Quaternion.identity);
@@ -126,7 +163,7 @@ public class LumiScript : MonoBehaviour
                 _speed = 3.0f;
             }
 
-            transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
+           transform.position = Vector2.MoveTowards(transform.position, followTarget.position, _speed * Time.deltaTime);
             _animator.SetBool("isRunning", true);
           
 

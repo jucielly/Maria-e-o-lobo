@@ -9,6 +9,8 @@ TagManager:
   - Jump
   - Ground
   - Lumi
+  - New tag
+  - Outlimits
   layers:
   - Default
   - TransparentFX
