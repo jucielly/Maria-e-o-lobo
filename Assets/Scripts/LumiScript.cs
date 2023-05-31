@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class LumiScript : MonoBehaviour
@@ -16,6 +17,7 @@ public class LumiScript : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    public Text lumiFollowsText;
 
 
     //jump
@@ -51,6 +53,24 @@ public class LumiScript : MonoBehaviour
 
 
         FollowPlayer();
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            ToogleFollow();
+        }
+
+
+        if (isFollowing)
+        {
+            lumiFollowsText.text = "Wait";
+
+        }
+        else
+        {
+
+            lumiFollowsText.text = "Follow Me";
+        }
+
     }
 
 
@@ -159,6 +179,20 @@ public class LumiScript : MonoBehaviour
             }
 
         }
+    }
+
+
+    public void ToogleFollow()
+    {
+        isFollowing = !isFollowing;
+
+        if (isFollowing)
+        {
+            StartFollowingPlayer();
+
+        }
+
+
     }
 
 

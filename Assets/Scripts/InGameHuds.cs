@@ -30,14 +30,13 @@ public class InGameHuds : MonoBehaviour
 
         if (lumiIsFollowing)
         {
-            GameObject.FindGameObjectWithTag("Lumi").GetComponent<LumiScript>().StartFollowingPlayer();
-            lumiFollowsText.text = "Parar de seguir";
+            lumiFollowsText.text = "Wait";
             
         }
         else
         {
 
-            lumiFollowsText.text = "Seguir";
+            lumiFollowsText.text = "Follow Me";
         }
    
     }
