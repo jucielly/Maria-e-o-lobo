@@ -12,7 +12,8 @@ public class FrogSript : MonoBehaviour
     private bool _isFacingRight;
     private Vector3 localScale;
     private SpriteRenderer _spriteRenderer;
-    private int life = 4;
+    public int life = 4;
+    public int giveDamage = 10;
     
     
 
@@ -75,9 +76,11 @@ public class FrogSript : MonoBehaviour
         {
             life = life - 1;
           
-            if(life < 1)
+          
+            if(life <= 1)
             {
                 Destroy(this.gameObject);
+
             }
         }
 
@@ -89,7 +92,7 @@ public class FrogSript : MonoBehaviour
 
             if(player != null)
             {
-                player.Damage(10);
+                player.Damage(giveDamage);
             }
         }
     }
