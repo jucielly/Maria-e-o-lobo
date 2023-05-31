@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8972506714599992183
+--- !u!114 &-1528540686862255873
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 25
+    value: 30
   threshold:
     overrideState: 0
     value: 1
@@ -60,4 +60,4 @@ MonoBehaviour:
   m_Name: MainMenu
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -8972506714599992183}
+  - {fileID: -1528540686862255873}

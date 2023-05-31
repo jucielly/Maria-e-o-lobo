@@ -13,6 +13,7 @@ public class FrogSript : MonoBehaviour
     private Vector3 localScale;
     private SpriteRenderer _spriteRenderer;
     private int life = 4;
+    
 
 
     void Start()
@@ -80,16 +81,16 @@ public class FrogSript : MonoBehaviour
         }
 
 
-        /*if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             //damage player
-          PlayerScript  player = collision.gameObject.GetComponent<PlayerScript>();
+          var  player = collision.gameObject.GetComponent<PlayerHealthSystem>();
 
             if(player != null)
             {
-                player.Damage();
+                player.Damage(10);
             }
-        }*/
+        }
     }
 
 }
