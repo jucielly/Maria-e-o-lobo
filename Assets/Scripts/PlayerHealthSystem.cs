@@ -40,10 +40,18 @@ public class PlayerHealthSystem : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-           GameObject.FindGameObjectWithTag("Player").GetComponent<PixelCharacterController>().IsDead = true;
-            gameOverUi.SetActive(true);
-            print("morreu");
+
+            StartCoroutine(Death());
+       
         }
+    }
+
+    IEnumerator Death()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PixelCharacterController>().IsDead = true;
+        print("morreu");
+        yield return new WaitForSeconds(2);
+        gameOverUi.SetActive(true);
     }
 
 }
