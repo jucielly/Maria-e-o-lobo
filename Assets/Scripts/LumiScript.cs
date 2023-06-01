@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class LumiScript : MonoBehaviour
 {
+
     [SerializeField]
     private float _speed = 3.0f;
     public bool isFollowing = false;
@@ -172,10 +173,13 @@ public class LumiScript : MonoBehaviour
             if (followTarget.position.x < transform.position.x)
             {
                 spriteRenderer.flipX = true;
+                //transform.eulerAngles = new Vector3(0, -180, 0);
+              
             }
             else
             {
                 spriteRenderer.flipX = false;
+               // transform.eulerAngles = new Vector3(0, 0, 0);
             }
          
             
