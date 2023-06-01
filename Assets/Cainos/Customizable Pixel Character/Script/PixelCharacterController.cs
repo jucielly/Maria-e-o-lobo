@@ -72,6 +72,8 @@ namespace Cainos.CustomizablePixelCharacter
         [Space]
         [FoldoutGroup("Attack")] public float arrowSpeed = 20.0f;
         [FoldoutGroup("Attack")] public GameObject arrowPrefab;
+        public AudioSource jumpAudio;
+        public AudioSource atackAudio;
 
         #endregion
 
@@ -384,6 +386,7 @@ namespace Cainos.CustomizablePixelCharacter
 
         public void OnArrowDraw()
         {
+            atackAudio.Play();
             if (bow == null) return;
             if (arrowPrefab == null) return;
             if (isDrawingBow == false) return;
@@ -398,6 +401,7 @@ namespace Cainos.CustomizablePixelCharacter
 
         public void OnArrowNock()
         {
+         
             IsStringPulled = true;
 
             onBowPull.Invoke();
@@ -405,12 +409,15 @@ namespace Cainos.CustomizablePixelCharacter
 
         public void OnArrowReady()
         {
+           
             if (isDrawingBow) isArrowReady = true;
         }
 
         public void OnArrowPutBack()
         {
+          
             IsArrowDrawn = false;
+          
 
             if (projectile)
             {
@@ -421,6 +428,7 @@ namespace Cainos.CustomizablePixelCharacter
 
         public void OnThrow()
         {
+        
             if (character.Weapon == null) return;
 
             var weapon = character.DetachWeapon().GetComponent<Rigidbody2D>();
@@ -429,17 +437,19 @@ namespace Cainos.CustomizablePixelCharacter
             weapon.angularVelocity = -facing * throwAngularSpeed;
 
             weapon.AddForce(PointAtTargetDirection * throwForce);
-
+         
             onThrow.Invoke();
         }
 
         public void ArcheryUpdate()
         {
+       
             if (bow && IsStringPulled) bow.StringPullPos = character.rigHandL.position;
         }
 
         private void Attack()
         {
+        
             isAttacking = false;
             attackActionIndex = inputMelee ? (int)attackActionMelee : (int)attackAction;
 
@@ -1132,12 +1142,14 @@ namespace Cainos.CustomizablePixelCharacter
             //start jump
             if (inputJump && jumpCdTimer >= JumpCoolDown)
             {
+                
                 //jump from ground
                 //also able to jump within air time tolerance
                 if (isGrounded || (0 < airTimer && airTimer <= jumpTolerance))
                 {
                     IsGrounded = false;
                     IsClimbingLadder = false;
+                    jumpAudio.Play();
 
                     jumpCdTimer = 0.0f;
 

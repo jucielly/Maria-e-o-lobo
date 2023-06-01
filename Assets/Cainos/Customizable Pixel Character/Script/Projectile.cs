@@ -7,14 +7,14 @@ namespace Cainos.CustomizablePixelCharacter
         public float lifeTime = 10.0f;
 
         private float timer;
-
+        public AudioSource arrowSound;
         public bool Launched
         {
             get { return launched; }
             set
             {
                 launched = value;
-
+                arrowSound.Play();
                 if ( launched) Rigidbody2D.simulated = true;
             }
         }
