@@ -107,7 +107,7 @@ public class LumiScript : MonoBehaviour
     public void StartFollowingPlayer()
     {
 
-        print("x" + player.GetComponent<Transform>().position.x + "y" + player.GetComponent<Transform>().position.y);
+      
         if (lastFollowedPlayer + 2 > Time.realtimeSinceStartup)
         {
             return;

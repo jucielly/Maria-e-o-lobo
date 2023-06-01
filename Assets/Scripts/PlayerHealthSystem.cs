@@ -15,6 +15,7 @@ public class PlayerHealthSystem : MonoBehaviour
     public Animator playerAnimator;
     public AudioSource damage;
     public GameObject gameOverUi;
+    public GameObject parede;
 
 
     // Start is called before the first frame update
@@ -48,9 +49,13 @@ public class PlayerHealthSystem : MonoBehaviour
 
     IEnumerator Death()
     {
+        float playerx = player.GetComponent<Transform>().position.x;
+        float playerY = player.GetComponent<Transform>().position.y;
+
+        Instantiate(parede, new Vector2(playerx, playerY), Quaternion.identity);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PixelCharacterController>().IsDead = true;
         print("morreu");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         gameOverUi.SetActive(true);
     }
 
