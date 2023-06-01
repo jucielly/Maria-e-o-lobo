@@ -10,4 +10,11 @@ public class Intro : MonoBehaviour
     {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
+
+
+    public void skip()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Game");
+    }
 }
